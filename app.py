@@ -7,24 +7,8 @@ app = Flask(__name__)
 BOT_TOKEN = os.getenv("8885675155:AAGxMF1htzYDkhUAfeODqVh4P3Eo5i9woaM")
 ADMIN_ID = os.getenv("8712902814")
 
-@app.route("/")
-def home():
-    return "PennySave server is running"
 
-@app.route("/notify", methods=["POST"])
-def notify():
-
-    data = request.json or {}
-
-    user_id = data.get("id", "Неизвестно")
-    name = data.get("name", "Неизвестно")
-
-    text = (
-        f"🟢 Пользователь открыл приложение\n\n"
-        f"Имя: {name}\n"
-        f"ID: {user_id}"
-    )
-
+def send_to_admin(text):
     requests.post(
         f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
         json={
@@ -33,7 +17,24 @@ def notify():
         }
     )
 
-    return {"status": "ok"}
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    data = request.json
+
+    message = data.get("message", {})
+    text = message.get("text", "")
+
+    user = message.get("from", {})
+    user_id = user.get("id")
+    username = user.get("username", "no_username")
+
+    # 👇 ловим START
+    if text == "/start":
+        send_to_admin(
+            f"🟢 Новый пользователь нажал START\n\n"
+            f"ID: {user_id}\n"
+            f"Username: @{username}"
+        )
+
+    return "ok"
