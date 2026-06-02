@@ -6,8 +6,8 @@ from datetime import datetime
 app = Flask(__name__)
 
 # 🔑 ВСТАВЬ В PYTHONANYWHERE → Web → Environment variables
-BOT_TOKEN = os.getenv("8885675155:AAGxMF1htzYDkhUAfeODqVh4P3Eo5i9woaM")
-ADMIN_ID = os.getenv("8712902814")
+BOT_TOKEN = "8885675155:AAGxMF1htzYDkhUAfeODqVh4P3Eo5i9woaM"
+ADMIN_ID = "8712902814"
 
 
 # 📩 отправка тебе в Telegram
