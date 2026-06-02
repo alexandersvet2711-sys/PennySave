@@ -4,8 +4,8 @@ import os
 
 app = Flask(__name__)
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = os.getenv("ADMIN_ID")
+BOT_TOKEN = os.getenv("8885675155:AAGxMF1htzYDkhUAfeODqVh4P3Eo5i9woaM")
+ADMIN_ID = os.getenv("8712902814")
 
 @app.route("/")
 def home():
